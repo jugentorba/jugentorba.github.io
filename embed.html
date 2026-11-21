@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><style>html,body{margin:0;height:100%;background:#000;overflow:hidden}#p{width:100%;height:100%}</style></head><body><div id="p"></div>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+var params=new URLSearchParams(location.search);
+var videoId=params.get('v')||'';
+var player;
+function report(message){try{parent.postMessage(message,'*');}catch(e){try{window.ReactNativeWebView.postMessage(message);}catch(_){}}}
+function onYouTubeIframeAPIReady(){
+  player=new YT.Player('p',{videoId:videoId,playerVars:{autoplay:1,mute:1,playsinline:1,rel:0,modestbranding:1,enablejsapi:1,origin:location.origin},events:{
+    onReady:function(){report('yt-ready');},
+    onError:function(event){report('yt-error:'+event.data);},
+    onStateChange:function(event){report('yt-state:'+event.data);}
+  }});
+}
+</script></body></html>
